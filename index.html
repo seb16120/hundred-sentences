@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f3ed">
+  <meta name="description" content="Cent phrases utiles en neuf langues, à lire, écouter et retenir.">
+  <title>Cent phrases, Hundred sentences, Hundert Sätze, Cien frases, Cento frasi, Сто фраз, 一百个句子, 百のフレーズ, Một trăm câu</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./phrases.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#accueil" aria-label="Cent phrases, accueil"><span class="brand-mark">P<span>·</span></span><span><strong>CENT PHRASES</strong></span></a>
+      <nav aria-label="Navigation principale"><a href="#phrases">Explorer</a><a href="#mode-emploi">Mode d’emploi</a></nav>
+      <div class="topbar-tag">UN PETIT ATLAS DE CONVERSATION <span>↗</span></div>
+    </header>
+
+    <div class="name-ribbon" aria-label="Le nom dans neuf langues"><span>CENT PHRASES</span><span>HUNDRED SENTENCES</span><span>HUNDERT SÄTZE</span><span>CIEN FRASES</span><span>CENTO FRASI</span><span>СТО ФРАЗ</span><span>一百个句子</span><span>百のフレーズ</span><span>MỘT TRĂM CÂU</span></div>
+    <main id="accueil">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> NEUF LANGUES · CENT POINTS DE DÉPART</div>
+          <h1 id="hero-title">Les mots pour<br><em>aller vers l’autre.</em></h1>
+          <p class="hero-intro">Une collection de phrases qui servent vraiment. Cherchez une idée, comparez les langues, écoutez la prononciation et gardez vos favorites.</p>
+          <a class="primary-link" href="#phrases">Commencer à explorer <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-outer"></div><div class="orbit orbit-middle"></div><div class="orbit orbit-inner"></div>
+          <span class="orbital-word word-hello">Hello</span><span class="orbital-word word-hola">Hola</span><span class="orbital-word word-nihao">你好</span><span class="orbital-word word-privet">Привет</span><span class="orbital-word word-konnichiwa">こんにちは</span>
+          <div class="hero-disc"><span class="disc-small">LA CONVERSATION<br>COMMENCE ICI</span><span class="disc-number">100</span><span class="disc-caption">phrases à faire vivre</span></div>
+          <span class="art-cross cross-one">✳</span><span class="art-cross cross-two">✳</span>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Présentation"><div><strong>100</strong><span>phrases essentielles</span></div><div><strong>09</strong><span>langues côte à côte</span></div><div><strong>∞</strong><span>façons de commencer</span></div><p>UN MOT APRÈS L’AUTRE.<br>UNE RENCONTRE APRÈS L’AUTRE.</p></section>
+
+      <section class="explorer" id="phrases" aria-labelledby="explorer-title">
+        <div class="section-head"><div><span class="section-kicker">01 / LE RÉPERTOIRE</span><h2 id="explorer-title">À vous la parole<span class="period">.</span></h2></div><p>De « bonjour » à « pouvez-vous répéter ? » : des phrases à retrouver au bon moment.</p></div>
+        <div class="controls">
+          <label class="search-wrap"><span class="sr-only">Rechercher dans toutes les langues</span><span aria-hidden="true">⌕</span><input type="search" id="search" placeholder="Chercher une phrase, un mot, une idée…" autocomplete="off"><kbd>/</kbd></label>
+          <label class="select-wrap">VOIR EN <select id="target-language" aria-label="Langue à afficher"></select></label>
+          <label class="select-wrap">VITESSE <select id="speech-rate" aria-label="Vitesse de lecture"><option value="0.75">Lente · 0,75×</option><option value="1" selected>Normale · 1×</option><option value="1.2">Rapide · 1,2×</option></select></label>
+        </div>
+        <div class="filter-row"><div class="filter-list" id="filters" role="group" aria-label="Filtrer par thème"></div><button class="favorites-toggle" id="favorites-toggle" type="button" aria-pressed="false">♡ <span>Mes favorites</span></button></div>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+        <div class="cards" id="cards"></div>
+        <div class="empty" id="empty" hidden><span aria-hidden="true">⌕</span><h3>Rien pour l’instant.</h3><p>Essayez un autre mot ou retirez un filtre.</p></div>
+      </section>
+
+      <section class="how" id="mode-emploi"><span class="section-kicker">02 / MODE D’EMPLOI</span><h2>Écouter. Répéter.<br><em>Se lancer.</em></h2><div class="how-grid"><div><span>01</span><h3>Trouvez une phrase</h3><p>Parcourez les thèmes ou cherchez un mot dans n’importe quelle langue.</p></div><div><span>02</span><h3>Écoutez-la</h3><p>Appuyez sur le haut-parleur, puis répétez. Réglez la vitesse selon votre envie.</p></div><div><span>03</span><h3>Gardez-la près de vous</h3><p>Marquez vos phrases favorites. Elles restent dans ce navigateur.</p></div></div><p class="voice-note">La lecture utilise les voix disponibles dans votre navigateur ou sur votre appareil. Certaines langues nécessitent l’installation d’une voix supplémentaire ; aucune piste audio n’est téléchargée avec cette page. Quelques formulations changent selon le genre de la personne qui parle. L’accent vietnamien dépend de la voix installée.</p></section>
+    </main>
+    <footer><div class="brand"><span class="brand-mark">P<span>·</span></span><span><strong>CENT PHRASES</strong></span></div><p>Un dictionnaire de phrases à emporter partout.</p><a href="#accueil">REMONTER ↑</a></footer>
+  </div>
+</body>
+</html>
