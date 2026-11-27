@@ -11,7 +11,7 @@
 2 ABon/Bsoir|AGood/Bevening|AGuten/BAbend|ABuenas/Btardes|ABuona/Bsera|AДобрый/Bвечер|B晚上/A好|Bこんばん/Dは|CChào/Bbuổi tối|AMagandang/Bgabi|ABiu/BPrévInNokta
 3 A|A|A|A|A|A|A|A|A|A
 4 AÀ/Bbientôt|ASee you/Bsoon|ABis/Bbald|AHasta/Bpronto|AA/Bpresto|AДо/Bскорого|A回头见|B近いうちに|AHẹn/Bsớm/Agặp lại|AHanggang/Bsa muli
-5 AMerci/Bbeaucoup|AThank/Cyou/Bvery much|BVielen/ADank|BMuchas/Agracias|AGrazie/Bmille|BБольшое/Aспасибо|B非常/A感谢|Bどうも/Aありがとう/Dございます|ACảm ơn/Brất nhiều|BMaraming/Asalamat
+5 AMerci/Bbeaucoup|AThank/Cyou/Bvery much|BVielen/ADank|BMuchas/Agracias|AGrazie/Bmille|BБольшое/Aспасибо|B非常/A感谢|Bどうも/Aありがとう/Dございます|ACảm ơn/Brất nhiều|BMaraming/Asalamat|AMèrsi
 6 A|A|A|A|A|A|A|A|A|A
 7 A|A|A|A|A|A|A|A|A|APakiusap/Bpo
 8 AExcusez/Bmoi|AExcuse/Bme|AEntschuldigen/C Sie|ADisculpe|BMi/Ascusi|AИзвините|A不好意思|Aすみません|AXin lỗi|APaumanhin/Cpo
@@ -38,7 +38,7 @@
 29 AEst-ce que/Bj'/Cai/Dbien/Ecompris|CDid/BI/Eunderstand/Dcorrectly|CHabe/Bich/F das/D richtig/E verstanden|FLo/Che/Eentendido/Dbien|CHo/Ecapito/Dbene|BЯ/Dправильно/Eпонял|B我/E理解/D得对/A吗|D正しく/E理解|BTôi/Ehiểu/Dđúng/Achứ|DTama/Aba/Epagkakaintindi/Bko|BMui/Cbif
 30 APouvez/Bvous/Cme/Dmontrer|ACould/B you/D show/C me|AKönnen/B Sie/E es/C mir/D zeigen|APuede/Denseñár/Cme/Elo|APuò/Dmostrar/Cme/Elo|AМожете/Cмне/Dпоказать|B你/A能/C给我/D看一下|D見せて/Aいただけます|BBạn/A có thể/Ccho tôi/Dxem/Ađược không|AMaaari/Bninyong/Dipakita/Csa akin
 31 AComment/Ballez-vous|AHow/Bare you|AWie/Bgeht es Ihnen|ACómo/Bestá|ACome/Bsta|AКак/Bу Вас дела|B你/A好|Bお元気/Aですか|BBạn/A khỏe không|AKumusta/Bkayo|AKést
-32 AJe/Bvais/Cbien/Dmerci|AI/B'm doing/Cwell/Dthanks|AMir/Bgeht es/Cgut/Ddanke|BEstoy/Cbien/Dgracias|BSto/Cbene/Dgrazie|AУ меня/Eвсё/Cхорошо/Dспасибо|A我/C很好/D谢谢|C元気/Bです/Dありがとう/Fございます|ATôi/Ckhỏe/Dcảm ơn|CMabuti/Aako/Dsalamat|AMui/Bési/Cbono
+32 AJe/Bvais/Cbien/Dmerci|AI/B'm doing/Cwell/Dthanks|AMir/Bgeht es/Cgut/Ddanke|BEstoy/Cbien/Dgracias|BSto/Cbene/Dgrazie|AУ меня/Eвсё/Cхорошо/Dспасибо|A我/C很好/D谢谢|C元気/Bです/Dありがとう/Fございます|ATôi/Ckhỏe/Dcảm ơn|CMabuti/Aako/Dsalamat|AMui/Bési/Cbono/Dmèrsi
 33 AEt/Bvous|AAnd/Byou|AUnd/BIhnen|AY/Busted|AE/Blei|AА/Bу Вас|B你/A呢|Bあなた/Aは|ACòn/Bbạn|AAt/Bkayo
 34 AQu'/Ben/Cpensez/Dvous|AWhat/Dyou/Cthink|AWas/C halten/D Sie/B davon|AQué/Dle/Cparece|AChe/Bne/Cpensa|AЧто/DВы/Bоб этом/Cдумаете|D你/A怎么/C看|Aどう/C思います|DBạn/Cnghĩ/Athế nào|AAno/Cpalagay/Dninyo|AKe
 35 AJe/Bsuis/Cd'accord|AI/Cagree|AIch/Cstimme zu|BEstoy/Cde acuerdo|BSono/Cd'accordo|AЯ/Cсогласен|A我/C同意|C賛成/Bです|ATôi/Cđồng ý|CSumasang-ayon/Aako|AMui
@@ -70,7 +70,7 @@
 61 ACombien/Bça/Ccoûte|AHow much/B this/C cost|AWie viel/Ckostet/Bdas|ACuánto/Ccuesta|AQuanto/Ccosta|AСколько/Bэто/Cстоит|B这个/A多少/C钱|Bこれ/Aいくら|BCái này/Cgiá/Abao nhiêu|AMagkano/Bito
 62 AAvez/Bvous/Cune/Dautre/Etaille|FDo/B you/A have/Danother/Esize|AHaben/B Sie/Ceine/Dandere/EGröße|ATiene/Dotra/Etalla|AAvete/Cun'/Daltra/Etaglia|BУ Вас/Aесть/Dдругой/Eразмер|A有/D别的/E尺码/F吗|D別の/Eサイズ/Aあります/Fか|BBạn/A có/Ecỡ/Dkhác/Fkhông|AMay/Diba/Fba/Bkayong/Esukat
 63 APuis/Bje/Cl'/Dessayer|ACan/B I/D try/C it/D on|AKann/B ich/C das/D anprobieren|APuedo/Dprobár/Cmelo|APosso/Dprovar/Clo|AМожно/Cэто/Dпримерить|B我/A可以/D试穿/E吗|D試着/Aしてもいい/Eですか|BTôi/A có thể/Dmặc thử/Ekhông|AMaaari/Bko/Eba/Citong/Disukat
-64 AJe/Bregarde/Cseulement/Dmerci|AI/Cjust/Blooking/Dthanks|AIch/Bschaue/Cnur/Bum/Ddanke|CSolo/Bmirando/Dgracias|Csolo/Bdando un'occhiata/Dgrazie|AЯ/Cпросто/Bсмотрю/Dспасибо|A我/C只是/B看看/D谢谢|B見ている/Cだけ/Dありがとう/Eございます|ATôi/Cchỉ/Bxem/Cthôi/Dcảm ơn|BTumitingin/Clang/Aako/Dsalamat|AMui/BinBioyor
+64 AJe/Bregarde/Cseulement/Dmerci|AI/Cjust/Blooking/Dthanks|AIch/Bschaue/Cnur/Bum/Ddanke|CSolo/Bmirando/Dgracias|Csolo/Bdando un'occhiata/Dgrazie|AЯ/Cпросто/Bсмотрю/Dспасибо|A我/C只是/B看看/D谢谢|B見ている/Cだけ/Dありがとう/Eございます|ATôi/Cchỉ/Bxem/Cthôi/Dcảm ơn|BTumitingin/Clang/Aako/Dsalamat|AMui/BinBioyor/Dmèrsi
 65 AJe/Bvais/Cprendre/Dcelui-ci|AI/B'll/Ctake/Dthis one|AIch/Cnehme/Ddas hier|CMe llevo/Deste|CPrendo/Dquesto|AЯ/Cвозьму/Dвот это|A我/C要/D这个|Dこれ/Cにします|ATôi/Bsẽ/Clấy/Dcái này|CKukunin/Ako/Dito|AMui/Bwil
 66 APuis/Bje/Cpayer/Dpar/Ecarte|ACan/B I/C pay/D by/E card|AKann/B ich/D mit/E Karte/C bezahlen|APuedo/Cpagar/Dcon/Etarjeta|APosso/Cpagare/Dcon la/Ecarta|AМожно/Cоплатить/Eкартой|A可以/C刷/E卡/F吗|Eカード/Dで/C払/Aえます/Fか|BTôi/A có thể/Cthanh toán/D bằng/E thẻ/Fkhông|AMaaari/Bakong/Cmagbayad/Dgamit ang/Ekard
 67 AAcceptez/Bvous/Cles/Despèces|B you/A accept/D cash|ANehmen/B Sie/D Bargeld/A an|AAcepta/Defectivo|AAccettate/Dcontanti|BВы/Aпринимаете/Dналичные|A收/D现金/E吗|D現金/A使えます/Eか|BBạn/A có nhận/Dtiền mặt/Ekhông|ATumatanggap/Bkayo/Dcash
@@ -96,7 +96,7 @@
 87 AMon/Bsac/Ca été/Dvolé|AMy/Bbag/Cwas/Dstolen|AMeine/BTasche/Cwurde/Dgestohlen|AMe/Chan/Drobado/Bbolso|AMi/Channo/Drubato/Bborsa|AУ меня/Dукрали/Bсумку|A我的/B包/C被/D偷了|Bかばん/D盗まれました|BTúi/Acủa tôi/Cbị/Dđánh cắp|DNinakaw/Bbag/Ako|A-sèlf/Cbif
 88 AOù/Bsont/Cles/Dtoilettes|AWhere/B is/C the/D restroom|AWo/Bist/Cdie/DToilette|ADónde/Bestá/Cel/Dbaño|ADov/Bè/Cil/Dbagno|AГде/Dтуалет|D洗手间/B在/A哪里|Dお手洗い/Aどこ/Bです|DNhà vệ sinh/Bở/Ađâu|ANasaan/Cang/Dpalikuran
 89 AEst-ce que/Btout/Cva/Dbien|CIs/Beverything/Dokay|CIst/Balles/Din Ordnung|CEstá/Btodo/Dbien|CVa/Btutto/Dbene|BВсё/Dв порядке|B一切/C都还/D好/A吗|D大丈夫/Cです/Aか|BMọi chuyện/Dổn/Achứ|DAyos/Aba/Blahat|BOl/Cési/Dbono
-90 AMerci/Bpour/Cvotre/Daide|AThank/Fyou/Bfor/Cyour/Dhelp|ADanke/Bfür/CIhre/DHilfe|AGracias/Bpor/Csu/Dayuda|AGrazie/Bper/Cil suo/Daiuto|AСпасибо/Bза/Dпомощь|A谢谢/C你的/D帮助|D助けて/Aありがとう/Eございます|ACảm ơn/Cbạn/Dgiúp đỡ|ASalamat/Bsa/Dtulong/Cninyo
+90 AMerci/Bpour/Cvotre/Daide|AThank/Fyou/Bfor/Cyour/Dhelp|ADanke/Bfür/CIhre/DHilfe|AGracias/Bpor/Csu/Dayuda|AGrazie/Bper/Cil suo/Daiuto|AСпасибо/Bза/Dпомощь|A谢谢/C你的/D帮助|D助けて/Aありがとう/Eございます|ACảm ơn/Cbạn/Dgiúp đỡ|ASalamat/Bsa/Dtulong/Cninyo|AMèrsi
 91 AQu'/Baimez/Cvous/Dfaire/Ependant/Fvotre/Gtemps/Hlibre|AWhat/I do/Cyou/Blike/Jto/Ddo/Ein/Fyour/Hfree/Gtime|AWas/Dmachen/C Sie/Bgern/Ein/FIhrer/HFrei/Gzeit|AQué/Cle/Bgusta/Dhacer/E en/Fsu/Gtiempo/Hlibre|ACosa/Cle/Bpiace/Dfare/Enel/Gtempo/Hlibero|AЧто/CВы/Bлюбите/Dделать/Eв/Hсвободное/Gвремя|C你/H空闲/E时/B喜欢/D做/A什么|H暇/Eなとき/A何/Dする/B好き|CBạn/Bthích/Dlàm/A gì/E lúc/Hrảnh|AAno/Bgusto/Cninyo/Dgawin/Esa/Hlibreng/Goras/Fninyo|AKe/Bamorir/Dmakar
 92 AJ'/Baime/Cla/Dmusique/Eet/Fles/Glivres|AI/Blike/Dmusic/Eand/Gbooks|AIch/Bmag/DMusik/Eund/GBücher|BMe gustan/Cla/Dmúsica/Ey/Flos/Glibros|BMi piacciono/Cla/Dmusica/Ee/Fi/Glibri|BМне нравятся/Dмузыка/Eи/Gкниги|A我/B喜欢/D音乐/E和/G书|D音楽/Eと/G本/B好き|ATôi/Bthích/Dâm nhạc/Evà/Gsách|BMahilig/Aako/Dmusika/Eat/Fmga/Glibro|AMui/Bamoir
 93 AQu'est-ce que/Bvous/Caimez/Dici|AWhat/B you/C like/Dabout this place|AWas/Cgefällt/B Ihnen/D hier|AQué/Ble/Cgusta/Dde este lugar|AChe cosa/Ble/Cpiace/Ddi questo posto|AЧто/BВам/Dздесь/Cнравится|B你/C喜欢/D这里/A什么|Dここ/Aどんなところ/C好き|BBạn/Cthích/Ađiều gì/Dở nơi này|AAno/Cnagustuhan/Bninyo/Drito|AKe/Camorir/Dici
