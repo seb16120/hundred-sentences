@@ -1,4 +1,6 @@
-# Cent phrases, Hundred sentences, Hundert Sätze, Cien frases, Cento frasi, Сто фраз, 一百个句子, 百のフレーズ, Một trăm câu
+# Hundred Sentences
+
+Cent phrases, Hundred sentences, Hundert Sätze, Cien frases, Cento frasi, Сто фраз, 一百个句子, 百のフレーズ, Một trăm câu.
 
 Un répertoire de 100 phrases utiles en français, anglais, allemand, espagnol, italien, russe, mandarin, japonais et vietnamien. La page fonctionne sans serveur et sans compte.
 
@@ -13,10 +15,10 @@ Les textes et les codes de langue sont dans `phrases.js` et `app.js`. Les voix s
 
 ## Mise en ligne avec GitHub Pages
 
-1. Utiliser le dépôt GitHub `seb16120/100-phrases`.
+1. Renommer le dépôt GitHub en `seb16120/hundred-sentences` dans **Settings → General → Repository name**.
 2. Déposer `index.html`, `style.css`, `app.js` et `phrases.js` à la racine du dépôt, sur la branche `main`.
 3. Dans **Settings → Pages → Build and deployment**, choisir **Deploy from a branch**, puis `main` et `/ (root)`.
-4. Ouvrir l'adresse indiquée par GitHub Pages, normalement `https://seb16120.github.io/100-phrases/`.
+4. Ouvrir l'adresse indiquée par GitHub Pages, normalement `https://seb16120.github.io/hundred-sentences/`.
 
 Pour essayer avant publication, ouvrir `index.html` dans un navigateur récent. Les chemins des fichiers sont relatifs et conviennent à un site GitHub Pages de projet.
 
