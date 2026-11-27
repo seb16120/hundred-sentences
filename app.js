@@ -152,7 +152,7 @@
     return el;
   }
 
-  const ipaCodes = {fr:'fr',en:'en-us',de:'de',es:'es',it:'it',ru:'ru',zh:'cmn',ja:'ja',vi:'vi',flp:'fr'};
+  const ipaCodes = {fr:'fr',en:'en-us',de:'de',es:'es',it:'it',ru:'ru',zh:'cmn',ja:'ja',vi:'vi'};
   function flaypoForFrenchVoice(text) {
     return text.replace(/<\?\?\?>/g,' ').replace(/[+\-]/g,' ')
       .replace(/[ñõĩûux]/gi,letter=>({ñ:'an',õ:'on',ĩ:'in',û:'u',u:'ou',x:'ch'})[letter.toLowerCase()]||letter);
@@ -169,6 +169,17 @@
       .replace(/e/g,'ɛ').replace(/[!?.,…:;“”]/g,' ')
       .replace(/\s+/g,' ').trim();
   }
+  function indicativeFlayPoIPA(text) {
+    // Letter values follow the author's French-based spelling notes.
+    // Unknown groups are omitted; stress and unresolved letters are not guessed.
+    const phonemes={a:'a',b:'b',c:'?',d:'d',e:'ə',é:'e',è:'ɛ',
+      f:'f',g:'g',h:'?',i:'i',ĩ:'ɛ̃',j:'ʒ',k:'k',l:'l',m:'m',
+      n:'n',ñ:'ɑ̃',o:'o',õ:'ɔ̃',p:'p',q:'?',r:'ʁ',s:'s',
+      t:'t',u:'u',û:'y',v:'v',w:'w',x:'ʃ',y:'j',z:'z'};
+    const known=text.replace(/<\?\?\?>/g,' ').toLocaleLowerCase('fr')
+      .split(/[\s+\-.,!?;:…]+/).filter(Boolean);
+    return known.map(word=>[...word].map(letter=>phonemes[letter]||'?').join('')).join(' ')||'…';
+  }
   const mandarinTones = phonemes => phonemes.replace(/3(?=[^0-9]*3)/g,'2').replace(/[1-5]/g,tone=>({
     1:'˥',2:'˧˥',3:'˨˩',4:'˥˩',5:'˧'
   })[tone]);
@@ -177,6 +188,7 @@
   })[tone]);
   async function ipaFor(phrase,key,index) {
     if(key==='fil')return indicativeTagalogIPA(phrase.fil);
+    if(key==='flp')return indicativeFlayPoIPA(phrase.flp);
     const cacheKey=`${key}:${index}`;
     if(phoneticCache.has(cacheKey))return phoneticCache.get(cacheKey);
     phoneticEngine ||= import('https://cdn.jsdelivr.net/npm/@spelling-creator/spellophone@0.2.1/dist/browser.js')
