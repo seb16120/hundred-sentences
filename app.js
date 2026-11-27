@@ -169,7 +169,7 @@
 
   const ipaCodes = {fr:'fr',en:'en-us',de:'de',es:'es',it:'it',ru:'ru',zh:'cmn',ja:'ja',vi:'vi'};
   function flaypoForFrenchVoice(text) {
-    return text.replace(/<\?\?\?>/g,' ').replace(/[+\-]/g,' ')
+    return text.replace(/<\?\?\?>/g,' ').replace(/(?<=\p{Ll})(?=\p{Lu})/gu,' ').replace(/[+\-]/g,' ')
       .replace(/[��i�ux]/gi,letter=>({�:'an',�:'on',i:'in',�:'u',u:'ou',x:'ch'})[letter.toLowerCase()]||letter);
   }
   function indicativeTagalogIPA(text) {
@@ -191,7 +191,7 @@
       f:'f',g:'g',h:'?',i:'i',i:'?~',j:'?',k:'k',l:'l',m:'m',
       n:'n',�:'?~',o:'o',�:'?~',p:'p',q:'?',r:'?',s:'s',
       t:'t',u:'u',�:'y',v:'v',w:'w',x:'?',y:'j',z:'z'};
-    const known=text.replace(/<\?\?\?>/g,' ').toLocaleLowerCase('fr')
+    const known=text.replace(/<\?\?\?>/g,' ').replace(/(?<=\p{Ll})(?=\p{Lu})/gu,' ').toLocaleLowerCase('fr')
       .split(/[\s+\-.,!?;:.]+/).filter(Boolean);
     return known.map(word=>[...word].map(letter=>phonemes[letter]||'?').join('')).join(' ')||'.';
   }
