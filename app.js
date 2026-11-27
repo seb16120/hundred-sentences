@@ -55,16 +55,16 @@
     fil:"Sa FlayPo, ang nakadiing mga termino ay mga anyong hinulaan o binuo ko at hindi pa kumpirmado sa diksyunaryo. Ang bawat « <???> » ay isang pangkat ng kahulugang kailangan pang likhain. Burador pa rin ang mga pangungusap kahit nakatala ang mga salita."
   };
   const meaningColorHelp = {
-    fr:"Les couleurs relient les groupes de sens équivalents dans une même fiche. Un groupe peut réunir plusieurs mots, et son ordre peut changer d’une langue à l’autre.",
-    en:"Colors link matching groups of meaning within a card. A group can contain several words, and its position can change across languages.",
-    de:"Farben verbinden Sinnabschnitte innerhalb einer Karte. Ein Abschnitt kann mehrere Wörter umfassen und je nach Sprache an einer anderen Stelle stehen.",
-    es:"Los colores enlazan grupos de significado equivalentes en una ficha. Un grupo puede incluir varias palabras y cambiar de posición según el idioma.",
-    it:"I colori collegano gruppi di significato equivalenti nella stessa scheda. Un gruppo può comprendere più parole e cambiare posizione a seconda della lingua.",
-    ru:"Цвета связывают смысловые группы в пределах карточки. Группа может включать несколько слов и стоять в другом месте в зависимости от языка.",
-    zh:"颜色标出同一张卡片中意思对应的部分。一部分可以包含多个词语，在不同语言中的位置也可能不同。",
-    ja:"同じカード内で意味が対応するまとまりを同じ色で示します。一つのまとまりには複数の語が含まれ、言語によって順序も変わります。",
-    vi:"Màu sắc nối các nhóm từ tương đương về nghĩa trong cùng một thẻ. Một nhóm có thể gồm nhiều từ và nằm ở vị trí khác nhau tùy ngôn ngữ.",
-    fil:"Pinagtutugma ng mga kulay ang mga bahaging magkasingkahulugan sa isang kard. Maaaring binubuo ng ilang salita ang isang bahagi at mag-iba ang puwesto nito depende sa wika."
+    fr:"Les couleurs suivent l’ordre des mots ou groupes de sens de la phrase de départ. Les éléments correspondants reprennent ces couleurs dans les traductions. Le reste garde la couleur du texte. Changez la langue de départ pour comparer autrement.",
+    en:"Colors follow the order of words or groups of meaning in the starting sentence. Matching parts reuse those colors in translations. Other text stays plain. Change the starting language to see a different alignment.",
+    de:"Die Farben folgen der Reihenfolge der Wörter oder Sinneinheiten im Ausgangssatz. Entsprechende Teile der Übersetzungen übernehmen diese Farben. Der übrige Text bleibt ohne Markierung. Ein Wechsel der Ausgangssprache ändert die Zuordnung.",
+    es:"Los colores siguen el orden de las palabras o grupos de sentido en la frase inicial. Sus equivalentes llevan esos colores en las traducciones. El resto queda sin resaltar. Cambia el idioma inicial para ver otras correspondencias.",
+    it:"I colori seguono l’ordine delle parole o dei gruppi di significato nella frase di partenza. Le parti corrispondenti nelle traduzioni riprendono gli stessi colori. Il resto rimane senza evidenziazione. Cambiando lingua di partenza cambiano le corrispondenze.",
+    ru:"Цвета следуют порядку слов или смысловых групп исходного предложения. Соответствующие части перевода выделены теми же цветами. Остальной текст остаётся без выделения. При смене исходного языка соответствия меняются.",
+    zh:"颜色按照原句中单词或意群的顺序分配，译文中对应的部分沿用相同颜色，其余部分不突出显示。更换原文语言可查看不同的对应关系。",
+    ja:"色は元の文に出てくる語や意味のまとまりの順に付きます。翻訳の対応する部分にも同じ色が付き、それ以外は通常の表示です。元の言語を変えると対応も変わります。",
+    vi:"Màu được gán theo thứ tự các từ hoặc nhóm nghĩa trong câu gốc. Phần tương ứng trong bản dịch dùng cùng màu. Phần còn lại không được tô. Đổi ngôn ngữ gốc để xem cách đối chiếu khác.",
+    fil:"Sumusunod ang mga kulay sa ayos ng mga salita o pangkat ng kahulugan sa panimulang pangungusap. Pareho ang kulay ng katumbas na bahagi sa salin. Walang kulay ang iba. Palitan ang panimulang wika para makita ang ibang pagtutugma."
   };
   const phoneticCache = new Map();
   window.PHONETIC_DISCREPANCIES = [];
@@ -267,23 +267,35 @@
     nodes.forEach(el=>pronunciationObserver.observe(el));
   }
 
-  function appendMeaningGroups(host, number, language, text, romanized = false) {
-    const segments = window.getMeaningGroups?.(number, language, text, romanized) ?? [{group:'0',text}];
+  function appendMeaningGroups(host, segments, assumedSpans = []) {
+    let offset = 0;
+    let assumedIndex = 0;
     for (const segment of segments) {
       const [, before, content, after] = segment.text.match(/^([\p{P}\s]*)(.*?)([\p{P}\s]*)$/su);
+      const start = offset + before.length;
+      const end = start + content.length;
+      offset += segment.text.length;
       host.append(before);
       if (content) {
         const group = segment.group === '0' ? host : textNode('span', 'meaning-group', '');
         if (group !== host) group.dataset.group = segment.group;
-        if (language === 'flp') {
-          for (const fragment of content.split(assumedFlayPoPattern)) {
-            if (assumedFlayPoTerms.has(fragment.toLowerCase())) {
-              const assumed = textNode('strong', 'flaypo-assumed', fragment);
-              assumed.title = 'Terme FlayPo supposé, non confirmé dans le dictionnaire';
-              group.append(assumed);
-            } else group.append(fragment);
-          }
-        } else group.append(content);
+        let position = start;
+        while (assumedIndex < assumedSpans.length && assumedSpans[assumedIndex].end <= position) {
+          assumedIndex++;
+        }
+        while (assumedIndex < assumedSpans.length && assumedSpans[assumedIndex].start < end) {
+          const span = assumedSpans[assumedIndex];
+          const markedStart = Math.max(position, span.start);
+          const markedEnd = Math.min(end, span.end);
+          group.append(content.slice(position - start, markedStart - start));
+          const assumed = textNode('strong', 'flaypo-assumed', content.slice(markedStart - start, markedEnd - start));
+          assumed.title = 'Terme FlayPo supposé, non confirmé dans le dictionnaire';
+          group.append(assumed);
+          position = markedEnd;
+          if (span.end > end) break;
+          assumedIndex++;
+        }
+        group.append(content.slice(position - start));
         if (group !== host) host.append(group);
       }
       host.append(after);
@@ -291,6 +303,13 @@
   }
 
   function card(phrase,index) {
+    const sourceText = phrase[state.source];
+    const plainText = text => [{group:'0',text}];
+    const highlighting = window.getPhraseHighlighting?.(index + 1, state.source, sourceText) ?? {
+      source:plainText(sourceText),
+      translation:(_language, text) => plainText(text),
+      romanization:(_language, text) => plainText(text)
+    };
     const el=textNode('article','card','');
     const header=textNode('div','card-top','');
     const meta=textNode('div','card-meta','');
@@ -303,7 +322,7 @@
     const label=textNode('span','source-language-label',languageByKey(state.source).label);label.lang=languageByKey(state.source).speech;
     const phraseLine=textNode('div','source-phrase-line','');
     const title=textNode('h3','card-title','');title.lang=languageByKey(state.source).speech;
-    appendMeaningGroups(title,index+1,state.source,phrase[state.source]);
+    appendMeaningGroups(title,highlighting.source);
     phraseLine.append(title);source.append(label,phraseLine);
     const translations=textNode('div','translations','');
     sortedLanguages.filter(l=>state.targets.has(l.key)).forEach(language=>{
@@ -311,13 +330,19 @@
       const name=textNode('span','lang-name',language.label);name.lang=language.speech;
       const value=textNode('span','lang-text','');
       const original=textNode('span','translation-original','');original.lang=language.speech;
-      appendMeaningGroups(original,index+1,language.key,phrase[language.key]);
+      const translationText = phrase[language.key];
+      const assumedSpans = language.key === 'flp'
+        ? [...translationText.matchAll(assumedFlayPoPattern)].map(match => ({
+            start:match.index, end:match.index + match[0].length
+          }))
+        : [];
+      appendMeaningGroups(original,highlighting.translation(language.key, translationText),assumedSpans);
       value.append(original);
       const romanization=language.key==='ru'?window.romanizeRussian(phrase.ru):readings[language.key]?.[index];
       if(romanization) {
         const readingKind=language.key==='zh'?'Pinyin':language.key==='ja'?'Rōmaji':pronunciationCopy().latin;
         const latin=textNode('span','latin-reading',`${readingKind} : `);
-        appendMeaningGroups(latin,index+1,language.key,romanization,true);
+        appendMeaningGroups(latin,highlighting.romanization(language.key, romanization, translationText));
         latin.lang=language.key==='zh'?'zh-Latn-pinyin':language.key==='ja'?'ja-Latn':'ru-Latn';
         value.append(latin);
       }
