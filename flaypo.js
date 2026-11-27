@@ -5,7 +5,7 @@
 // they were inferred for this site and must be visibly marked as such.
 window.FLAYPO_ASSUMED_TERMS = new Set([
   'BiuInLûmi', // v5 has Biu-in-lumi; the accented spelling is inferred.
-  'BiuPrévInNokta', 'BonoInLûmi', 'far', 'inLûmi', 'no-ési', 'po-yors'
+  'BiuPrévInNokta', 'BonoInLûmi', 'far', 'inLûmi', 'no-ési', 'po-yors', 'reInBioyor'
 ]);
 // Author-confirmed, 27 November 2026: ici = here, icir = be here;
 // la = there, lar = be there.
@@ -13,7 +13,7 @@ window.FLAYPO_ASSUMED_TERMS = new Set([
 window.FLAYPO_DRAFTS = [
   ["BiuInLûmi !", ""],
   ["BiuPrévInNokta !", ""],
-  ["<???> !", "au revoir"],
+  ["Til <???> reInBioyor !", "se (l’un l’autre)", true],
   ["<???> !", "à bientôt"],
   ["Mèrsi <???>.", "beaucoup"],
   ["<???>.", "de rien"],
@@ -117,12 +117,13 @@ if(window.FLAYPO_DRAFTS.length !== window.PHRASES?.length) {
   throw new Error("FlayPo drafts must match the phrase catalogue.");
 }
 window.PHRASES.forEach((phrase,index) => {
-  const [text,groups] = window.FLAYPO_DRAFTS[index];
+  const [text,groups,emphasizedDraft=false] = window.FLAYPO_DRAFTS[index];
   const missing = groups ? groups.split('|') : [];
   if((text.match(/<\?\?\?>/g)||[]).length !== missing.length) {
     throw new Error(`FlayPo placeholders do not match missing groups at #${index+1}`);
   }
   phrase.flp=text;
   phrase.flpMissing=missing;
+  phrase.flpEmphasizedDraft=emphasizedDraft;
 });
 
