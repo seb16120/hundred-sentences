@@ -329,7 +329,8 @@
       const row=textNode('div','translation-row','');
       const name=textNode('span','lang-name',language.label);name.lang=language.speech;
       const value=textNode('span','lang-text','');
-      const original=textNode('span','translation-original','');original.lang=language.speech;
+      const emphasizedDraft=language.key==='flp' && phrase.flpEmphasizedDraft;
+      const original=textNode(emphasizedDraft?'strong':'span','translation-original','');original.lang=language.speech;
       const translationText = phrase[language.key];
       const assumedSpans = language.key === 'flp'
         ? [...translationText.matchAll(assumedFlayPoPattern)].map(match => ({
