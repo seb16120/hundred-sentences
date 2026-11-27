@@ -54,6 +54,18 @@
     vi:"Trong FlayPo, chữ in đậm là dạng tôi suy đoán hoặc ghép lại, chưa được xác nhận trong từ điển. Mỗi « <???> » là một nhóm nghĩa cần tạo từ. Mọi câu vẫn là bản nháp dù các từ đã được ghi nhận.",
     fil:"Sa FlayPo, ang nakadiing mga termino ay mga anyong hinulaan o binuo ko at hindi pa kumpirmado sa diksyunaryo. Ang bawat « <???> » ay isang pangkat ng kahulugang kailangan pang likhain. Burador pa rin ang mga pangungusap kahit nakatala ang mga salita."
   };
+  const meaningColorHelp = {
+    fr:"Les couleurs relient les groupes de sens équivalents dans une même fiche. Un groupe peut réunir plusieurs mots, et son ordre peut changer d’une langue à l’autre.",
+    en:"Colors link matching groups of meaning within a card. A group can contain several words, and its position can change across languages.",
+    de:"Farben verbinden Sinnabschnitte innerhalb einer Karte. Ein Abschnitt kann mehrere Wörter umfassen und je nach Sprache an einer anderen Stelle stehen.",
+    es:"Los colores enlazan grupos de significado equivalentes en una ficha. Un grupo puede incluir varias palabras y cambiar de posición según el idioma.",
+    it:"I colori collegano gruppi di significato equivalenti nella stessa scheda. Un gruppo può comprendere più parole e cambiare posizione a seconda della lingua.",
+    ru:"Цвета связывают смысловые группы в пределах карточки. Группа может включать несколько слов и стоять в другом месте в зависимости от языка.",
+    zh:"颜色标出同一张卡片中意思对应的部分。一部分可以包含多个词语，在不同语言中的位置也可能不同。",
+    ja:"同じカード内で意味が対応するまとまりを同じ色で示します。一つのまとまりには複数の語が含まれ、言語によって順序も変わります。",
+    vi:"Màu sắc nối các nhóm từ tương đương về nghĩa trong cùng một thẻ. Một nhóm có thể gồm nhiều từ và nằm ở vị trí khác nhau tùy ngôn ngữ.",
+    fil:"Pinagtutugma ng mga kulay ang mga bahaging magkasingkahulugan sa isang kard. Maaaring binubuo ng ilang salita ang isang bahagi at mag-iba ang puwesto nito depende sa wika."
+  };
   const phoneticCache = new Map();
   window.PHONETIC_DISCREPANCIES = [];
   let phoneticEngine, kanaConverter, pronunciationObserver;
@@ -98,9 +110,12 @@
   const ui = () => copy[state.source] || copy.fr;
   const pronunciationCopy = () => pronunciationLabels[state.source] || pronunciationLabels.fr;
   const textNode = (tag, cls, value) => { const el=document.createElement(tag); if(cls) el.className=cls; el.textContent=value; return el; };
-  const assumedFlayPoTerms = window.FLAYPO_ASSUMED_TERMS;
-  const assumedFlayPoPattern = new RegExp(`(${[...assumedFlayPoTerms].sort((a,b)=>b.length-a.length).map(term=>term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')})`,'giu');
-  const isAssumedFlayPo = term => [...assumedFlayPoTerms].some(known=>known.toLocaleLowerCase('fr')===term.toLocaleLowerCase('fr'));
+  const assumedFlayPoTerms = new Set([...window.FLAYPO_ASSUMED_TERMS].map(term=>term.toLowerCase()));
+  const assumedAlternatives = [...assumedFlayPoTerms]
+    .sort((a,b)=>b.length-a.length)
+    .map(term=>term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'))
+    .join('|');
+  const assumedFlayPoPattern = new RegExp(`(?<![\\p{L}\\p{M}])(${assumedAlternatives})(?![\\p{L}\\p{M}])`,'giu');
   const button = (label, cls, title) => { const el=textNode('button',cls,label); el.type='button'; el.title=title; el.setAttribute('aria-label',title); return el; };
   const normalize = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase();
   const lexiconLabels = {
@@ -252,6 +267,29 @@
     nodes.forEach(el=>pronunciationObserver.observe(el));
   }
 
+  function appendMeaningGroups(host, number, language, text, romanized = false) {
+    const segments = window.getMeaningGroups?.(number, language, text, romanized) ?? [{group:'0',text}];
+    for (const segment of segments) {
+      const [, before, content, after] = segment.text.match(/^([\p{P}\s]*)(.*?)([\p{P}\s]*)$/su);
+      host.append(before);
+      if (content) {
+        const group = segment.group === '0' ? host : textNode('span', 'meaning-group', '');
+        if (group !== host) group.dataset.group = segment.group;
+        if (language === 'flp') {
+          for (const fragment of content.split(assumedFlayPoPattern)) {
+            if (assumedFlayPoTerms.has(fragment.toLowerCase())) {
+              const assumed = textNode('strong', 'flaypo-assumed', fragment);
+              assumed.title = 'Terme FlayPo supposé, non confirmé dans le dictionnaire';
+              group.append(assumed);
+            } else group.append(fragment);
+          }
+        } else group.append(content);
+        if (group !== host) host.append(group);
+      }
+      host.append(after);
+    }
+  }
+
   function card(phrase,index) {
     const el=textNode('article','card','');
     const header=textNode('div','card-top','');
@@ -264,7 +302,8 @@
     const source=textNode('div','source-phrase','');
     const label=textNode('span','source-language-label',languageByKey(state.source).label);label.lang=languageByKey(state.source).speech;
     const phraseLine=textNode('div','source-phrase-line','');
-    const title=textNode('h3','card-title',phrase[state.source]);title.lang=languageByKey(state.source).speech;
+    const title=textNode('h3','card-title','');title.lang=languageByKey(state.source).speech;
+    appendMeaningGroups(title,index+1,state.source,phrase[state.source]);
     phraseLine.append(title);source.append(label,phraseLine);
     const translations=textNode('div','translations','');
     sortedLanguages.filter(l=>state.targets.has(l.key)).forEach(language=>{
@@ -272,21 +311,13 @@
       const name=textNode('span','lang-name',language.label);name.lang=language.speech;
       const value=textNode('span','lang-text','');
       const original=textNode('span','translation-original','');original.lang=language.speech;
-      if(language.key==='flp') {
-        const fragments=phrase.flp.split(assumedFlayPoPattern);
-        fragments.forEach(fragment=>{
-          if(isAssumedFlayPo(fragment)) {
-            const assumed=textNode('strong','flaypo-assumed',fragment);
-            assumed.title='Terme FlayPo supposé, non confirmé dans le dictionnaire';
-            original.append(assumed);
-          } else original.append(document.createTextNode(fragment));
-        });
-      } else original.textContent=phrase[language.key];
+      appendMeaningGroups(original,index+1,language.key,phrase[language.key]);
       value.append(original);
       const romanization=language.key==='ru'?window.romanizeRussian(phrase.ru):readings[language.key]?.[index];
       if(romanization) {
         const readingKind=language.key==='zh'?'Pinyin':language.key==='ja'?'Rōmaji':pronunciationCopy().latin;
-        const latin=textNode('span','latin-reading',`${readingKind} : ${romanization}`);
+        const latin=textNode('span','latin-reading',`${readingKind} : `);
+        appendMeaningGroups(latin,index+1,language.key,romanization,true);
         latin.lang=language.key==='zh'?'zh-Latn-pinyin':language.key==='ja'?'ja-Latn':'ru-Latn';
         value.append(latin);
       }
@@ -434,7 +465,7 @@
     $('#how-kicker').textContent=`01 / ${t.howKicker.replace(/^\d+\s*\/\s*/,'')}`;
     $('#explorer-kicker').textContent=`02 / ${t.catalogKicker.replace(/^\d+\s*\/\s*/,'')}`;
     $('#how-detail-2').textContent=guide[state.source].audio;
-    const tips=document.createDocumentFragment();[...guide[state.source].tips,assumedFlayPoHelp[state.source],pronunciationHelp[state.source]].forEach(tip=>tips.append(textNode('li','',tip)));
+    const tips=document.createDocumentFragment();[...guide[state.source].tips,meaningColorHelp[state.source],assumedFlayPoHelp[state.source],pronunciationHelp[state.source]].forEach(tip=>tips.append(textNode('li','',tip)));
     $('#guide-tips').replaceChildren(tips);
     $('#search').placeholder=t.placeholder;
     $('#source-language').setAttribute('aria-label',t.sourceLabel);
@@ -487,3 +518,4 @@
   window.addEventListener('pagehide',stopAudio);
   localize();
 })();
+
