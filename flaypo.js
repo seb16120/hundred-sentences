@@ -9,12 +9,13 @@ window.FLAYPO_ASSUMED_TERMS = new Set([
 ]);
 // Author-confirmed, 27 November 2026: ici = here, icir = be here;
 // la = there, lar = be there.
+// mèrsi = merci -V> mèrsir = remercier (-V> : verbe associé).
 window.FLAYPO_DRAFTS = [
   ["BiuInLûmi !", ""],
   ["BiuPrévInNokta !", ""],
   ["<???> !", "au revoir"],
   ["<???> !", "à bientôt"],
-  ["<???>.", "merci beaucoup"],
+  ["Mèrsi <???>.", "beaucoup"],
   ["<???>.", "de rien"],
   ["<???>.", "s'il vous plaît"],
   ["<???>.", "excusez-moi"],
@@ -41,7 +42,7 @@ window.FLAYPO_DRAFTS = [
   ["Mui bif <???> ?", "bien compris"],
   ["<???> ?", "pouvez-vous me montrer"],
   ["Kést <???> ?", "allez-vous"],
-  ["Mui ési bono, <???>.", "merci"],
+  ["Mui ési bono, mèrsi.", ""],
   ["<???> ?", "et vous"],
   ["Ke <???> ?", "en pensez-vous"],
   ["Mui <???>.", "suis d'accord"],
@@ -73,7 +74,7 @@ window.FLAYPO_DRAFTS = [
   ["<???> ?", "combien ça coûte"],
   ["<???> <???> ?", "avez-vous|une autre taille"],
   ["<???> ?", "puis-je l'essayer"],
-  ["Mui inBioyor <???>, <???>.", "seulement|merci"],
+  ["Mui inBioyor <???>, mèrsi.", "seulement"],
   ["Mui wil <???>.", "prendre celui-ci"],
   ["<???> <???> ?", "puis-je payer|par carte"],
   ["<???> <???> ?", "acceptez-vous|les espèces"],
@@ -99,7 +100,7 @@ window.FLAYPO_DRAFTS = [
   ["<???>-sèlf bif <???>.", "sac|a été volé"],
   ["<???> <???> ?", "où sont|les toilettes"],
   ["Ol ési bono ?", ""],
-  ["<???> <???>.", "merci|pour votre aide"],
+  ["Mèrsi <???>.", "pour votre aide"],
   ["Ke <???> amorir makar <???> ?", "vous|pendant votre temps libre"],
   ["Mui amoir <???> <???> <???>.", "la musique|et|les livres"],
   ["Ke <???> amorir ici ?", "vous"],
