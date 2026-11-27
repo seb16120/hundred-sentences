@@ -9,7 +9,7 @@
   const rows = `
 1 A|A|A|A|A|A|A|A|A|A|A
 2 ABon/Bsoir|AGood/Bevening|AGuten/BAbend|ABuenas/Btardes|ABuona/Bsera|AДобрый/Bвечер|B晚上/A好|Bこんばん/Dは|CChào/Bbuổi tối|AMagandang/Bgabi|ABiu/BPrévInNokta
-3 A|A|A|A|A|A|A|A|A|A
+3 A|A|A|A|A|A|A|A|A|A|ATil/AreInBioyor
 4 AÀ/Bbientôt|ASee you/Bsoon|ABis/Bbald|AHasta/Bpronto|AA/Bpresto|AДо/Bскорого|A回头见|B近いうちに|AHẹn/Bsớm/Agặp lại|AHanggang/Bsa muli
 5 AMerci/Bbeaucoup|AThank/Cyou/Bvery much|BVielen/ADank|BMuchas/Agracias|AGrazie/Bmille|BБольшое/Aспасибо|B非常/A感谢|Bどうも/Aありがとう/Dございます|ACảm ơn/Brất nhiều|BMaraming/Asalamat|AMèrsi
 6 A|A|A|A|A|A|A|A|A|A
