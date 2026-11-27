@@ -108,6 +108,9 @@
   }
 
   const ipaCodes = {fr:'fr',en:'en-us',de:'de',es:'es',it:'it',ru:'ru',zh:'cmn',ja:'ja',vi:'vi'};
+  const mandarinTones = phonemes => phonemes.replace(/3(?=[^0-9]*3)/g,'2').replace(/[1-5]/g,tone=>({
+    1:'˥',2:'˧˥',3:'˨˩',4:'˥˩',5:'˧'
+  })[tone]);
   async function ipaFor(phrase,key,index) {
     const cacheKey=`${key}:${index}`;
     if(phoneticCache.has(cacheKey))return phoneticCache.get(cacheKey);
@@ -115,21 +118,27 @@
       .then(({createEspeak})=>createEspeak({cdn:'jsdelivr',wasmUrl:'https://cdn.jsdelivr.net/npm/@spelling-creator/spellophone@0.2.1/wasm/espeak-ng.wasm'}));
     const engine=await phoneticEngine;
     await engine.loadVoice(ipaCodes[key]);
-    let input=phrase[key];
+    let input=key==='zh'?readings.zh[index]:phrase[key];
     if(key==='ja') {
       kanaConverter ||= import('https://cdn.jsdelivr.net/npm/wanakana@5.3.1/+esm');
       const converter=await kanaConverter;
       input=converter.toHiragana(readings.ja[index].replace(/ō/g,'ou').replace(/ū/g,'uu').replace(/-/g,' '));
     }
     engine.setVoice(ipaCodes[key]);
-    const ipa=engine.phonemes(input).trim();
+    let ipa=engine.phonemes(input).trim();
+    if(key==='zh') {
+      // eSpeak NG accepts tone-marked pinyin. Apply common third-tone sandhi,
+      // then render tone numbers as IPA tone letters instead of ASCII digits.
+      ipa=mandarinTones(ipa);
+    }
     if(!ipa)throw new Error('No phonetic transcription');
     if(['ru','zh','ja'].includes(key)) {
       const roman=key==='ru'?window.romanizeRussian(phrase.ru):readings[key][index];
       // Kanji have no reliable direct reading in eSpeak NG: compare kana and romaji instead.
-      const comparison=engine.phonemes(roman).trim();
+      const other=engine.phonemes(key==='zh'?phrase.zh:roman).trim();
+      const comparison=key==='zh'?mandarinTones(other):other;
       if(comparison && comparison!==ipa)window.PHONETIC_DISCREPANCIES.push({index:index+1,language:key,native:ipa,latin:comparison});
-      // The native writing wins for Russian and Mandarin; kana readings win for Japanese.
+      // Cyrillic wins for Russian; tonal pinyin wins for Mandarin; kana wins for Japanese.
     }
     phoneticCache.set(cacheKey,ipa);
     return ipa;
@@ -173,7 +182,8 @@
       value.append(original);
       const romanization=language.key==='ru'?window.romanizeRussian(phrase.ru):readings[language.key]?.[index];
       if(romanization) {
-        const latin=textNode('span','latin-reading',`${pronunciationCopy().latin} : ${romanization}`);
+        const readingKind=language.key==='zh'?'Pinyin':language.key==='ja'?'Rōmaji':pronunciationCopy().latin;
+        const latin=textNode('span','latin-reading',`${readingKind} : ${romanization}`);
         latin.lang=language.key==='zh'?'zh-Latn-pinyin':language.key==='ja'?'ja-Latn':'ru-Latn';
         value.append(latin);
       }
