@@ -111,6 +111,9 @@
   const mandarinTones = phonemes => phonemes.replace(/3(?=[^0-9]*3)/g,'2').replace(/[1-5]/g,tone=>({
     1:'˥',2:'˧˥',3:'˨˩',4:'˥˩',5:'˧'
   })[tone]);
+  const vietnameseTones = phonemes => phonemes.replace(/[1-7]/g,tone=>({
+    1:'˧',2:'˨˩',3:'˧˥',4:'˧˩˧',5:'˧ˀ˥',6:'˨˩ˀ',7:'˧'
+  })[tone]);
   async function ipaFor(phrase,key,index) {
     const cacheKey=`${key}:${index}`;
     if(phoneticCache.has(cacheKey))return phoneticCache.get(cacheKey);
@@ -131,6 +134,7 @@
       // then render tone numbers as IPA tone letters instead of ASCII digits.
       ipa=mandarinTones(ipa);
     }
+    if(key==='vi')ipa=vietnameseTones(ipa);
     if(!ipa)throw new Error('No phonetic transcription');
     if(['ru','zh','ja'].includes(key)) {
       const roman=key==='ru'?window.romanizeRussian(phrase.ru):readings[key][index];
