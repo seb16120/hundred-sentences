@@ -4,12 +4,12 @@
 // attested in neither the v5 glossary nor the 21 October 2026 decisions;
 // they were inferred for this site and must be visibly marked as such.
 window.FLAYPO_ASSUMED_TERMS = new Set([
-  'Biu-in-l�mi', // v5 has Biu-in-lumi; the accented spelling is inferred.
-  'Bono-in-l�mi', 'far', 'ici', 'in-l�mi', 'no-�si', 'po-yors'
+  'BiuInL�mi', // v5 has Biu-in-lumi; the accented spelling is inferred.
+  'BonoInL�mi', 'far', 'ici', 'inL�mi', 'no-�si', 'po-yors'
 ]);
 window.FLAYPO_DRAFTS = [
-  ["Biu-in-l�mi !", ""],
-  ["Biu-pr�v-in-nokta !", ""],
+  ["BiuInL�mi !", ""],
+  ["BiuPr�vInNokta !", ""],
   ["<???> !", "au revoir"],
   ["<???> !", "� bient�t"],
   ["<???>.", "merci beaucoup"],
@@ -17,7 +17,7 @@ window.FLAYPO_DRAFTS = [
   ["<???>.", "s'il vous pla�t"],
   ["<???>.", "excusez-moi"],
   ["Mui �si <???>.", "d�sol�"],
-  ["Bono-in-l�mi !", ""],
+  ["BonoInL�mi !", ""],
   ["K�st <???> ?", "vous appelez-vous"],
   ["Mui <???>.", "m'appelle"],
   ["<???>.", "enchant� de faire votre connaissance"],
@@ -28,12 +28,12 @@ window.FLAYPO_DRAFTS = [
   ["<???>-s�lf.", "premi�re visite"],
   ["Mui <???>.", "voyage seul"],
   ["<???>.", "ravi de vous revoir"],
-  ["<???> ut-spikir <???> ?", "vous|fran�ais"],
-  ["Mui ut-spikir <???> po-yors.", "un peu"],
+  ["<???> utSpikir <???> ?", "vous|fran�ais"],
+  ["Mui utSpikir <???> po-yors.", "un peu"],
   ["Mui no-<???>.", "comprends"],
   ["<???> ?", "pouvez-vous r�p�ter"],
-  ["<???> ut-spikir <???> ?", "pouvez-vous|plus lentement"],
-  ["K�st ut-spikir <???> po-yors ?", "dit-on cela dans"],
+  ["<???> utSpikir <???> ?", "pouvez-vous|plus lentement"],
+  ["K�st utSpikir <???> po-yors ?", "dit-on cela dans"],
   ["Ke <???> ?", "cela veut dire"],
   ["<???> simbir <???> ?", "pouvez-vous|l'"],
   ["Mui bif <???> ?", "bien compris"],
@@ -46,7 +46,7 @@ window.FLAYPO_DRAFTS = [
   ["Mui no-�si <???>.", "s�r"],
   ["<???> !", "c'est int�ressant"],
   ["<???> ?", "pourquoi"],
-  ["<???> ut-spikir <???> ?", "pouvez-vous|m'en dire plus"],
+  ["<???> utSpikir <???> ?", "pouvez-vous|m'en dire plus"],
   ["Mui ve <???>.", "en savoir plus"],
   ["<???> <???> ?", "o� se trouve|la gare"],
   ["K�st zalir <???> ?", "au centre-ville"],
@@ -57,7 +57,7 @@ window.FLAYPO_DRAFTS = [
   ["<???> timig utZalir <???> ?", "� quelle heure|le train"],
   ["<???> bono <???> ?", "est-ce|le quai"],
   ["Mui �si <???>.", "perdu"],
-  ["<???> mini-strase ?", "pouvez-vous m'indiquer le"],
+  ["<???> miniStrase ?", "pouvez-vous m'indiquer le"],
   ["<???> t�b <???> ?", "avez-vous|pour une personne"],
   ["<???> inBioyor <???> ?", "puis-je|le menu"],
   ["Ke <???> ?", "recommandez-vous"],
@@ -79,9 +79,9 @@ window.FLAYPO_DRAFTS = [
   ["<???> <???> ?", "avez-vous quelque chose|de moins cher"],
   ["<???> ?", "puis-je le retourner"],
   ["<???> timig ?", "quelle heure est-il"],
-  ["<???> in-l�mi <???> ?", "quel jour|sommes-nous"],
-  ["<???> wa-r�k <???> ?", "c'est|aujourd'hui"],
-  ["<???> timig g�f-r�kir ?", "� quelle heure �a"],
+  ["<???> inL�mi <???> ?", "quel jour|sommes-nous"],
+  ["<???> waR�k <???> ?", "c'est|aujourd'hui"],
+  ["<???> timig g�fR�kir ?", "� quelle heure �a"],
   ["Mui wil inZalir <???>.", "l� dans dix minutes"],
   ["Mui inZalir <???>.", "tout de suite"],
   ["<???> tomoro ?", "pouvons-nous nous retrouver"],
