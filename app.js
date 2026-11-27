@@ -376,10 +376,15 @@
   function render() {
     stopAudio();
     const q=normalize(state.query.trim());
+    const exact=Boolean(q) && /\s$/u.test(state.query);
+    const segmenter=exact ? wordSegmenter(state.source) : null;
+    const queryWords=exact ? wordsIn(state.query,segmenter).map(normalize) : [];
     const visible=phrases.map((p,i)=>({p,i})).filter(({p,i})=>
       (state.theme==='Tout'||p.theme===state.theme)&&
       (!state.favoritesOnly||state.favorites.has(i))&&
-      (!q||[p.theme,...languages.map(l=>p[l.key])].some(value=>normalize(value).includes(q)))
+      (!q||(exact
+        ? containsWords(p[state.source],queryWords,segmenter)
+        : [p.theme,...languages.map(l=>p[l.key])].some(value=>normalize(value).includes(q))))
     );
     const fragment=document.createDocumentFragment();visible.forEach(({p,i})=>fragment.append(card(p,i)));
     $('#cards').replaceChildren(fragment);
@@ -389,15 +394,28 @@
     observePronunciations();
   }
 
+  function wordSegmenter(key) {
+    return typeof Intl.Segmenter==='function'
+      ? new Intl.Segmenter(languageByKey(key).speech,{granularity:'word'}) : null;
+  }
+
+  function wordsIn(text,segmenter) {
+    return segmenter
+      ? [...segmenter.segment(text)].filter(part=>part.isWordLike).map(part=>part.segment)
+      : text.match(/[\p{L}\p{M}\p{N}]+(?:['’][\p{L}\p{M}\p{N}]+)*/gu)||[];
+  }
+
+  function containsWords(text,queryWords,segmenter) {
+    if(!queryWords.length)return false;
+    const words=wordsIn(text,segmenter).map(normalize);
+    return words.some((_,start)=>queryWords.every((word,offset)=>words[start+offset]===word));
+  }
+
   function lexiconEntries() {
     const key=state.source, language=languageByKey(key), entries=new Map();
-    const segmenter=typeof Intl.Segmenter==='function'
-      ? new Intl.Segmenter(language.speech,{granularity:'word'}):null;
+    const segmenter=wordSegmenter(key);
     phrases.forEach((phrase,index)=>{
-      const segments=segmenter
-        ? [...segmenter.segment(phrase[key])].filter(part=>part.isWordLike).map(part=>part.segment)
-        : phrase[key].match(/[\p{L}\p{M}]+(?:['’][\p{L}\p{M}]+)*/gu)||[];
-      segments.forEach(word=>{
+      wordsIn(phrase[key],segmenter).forEach(word=>{
         if(!/[\p{L}\p{M}]/u.test(word))return;
         const id=normalize(word);
         const current=entries.get(id)||{word,count:0,example:index};
@@ -419,7 +437,7 @@
       const word=button(entry.word,'lexicon-word',entry.word);
       word.lang=languageByKey(state.source).speech;
       word.addEventListener('click',()=>{
-        $('#search').value=entry.word;state.query=entry.word;
+        state.query=entry.word+' ';$('#search').value=state.query;
         setLexiconOpen(false);render();$('#cards').scrollIntoView({block:'start',behavior:'smooth'});
       });
       const count=textNode('span','lexicon-frequency',`× ${entry.count}`);
