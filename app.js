@@ -121,7 +121,7 @@
       .then(({createEspeak})=>createEspeak({cdn:'jsdelivr',wasmUrl:'https://cdn.jsdelivr.net/npm/@spelling-creator/spellophone@0.2.1/wasm/espeak-ng.wasm'}));
     const engine=await phoneticEngine;
     await engine.loadVoice(ipaCodes[key]);
-    let input=key==='zh'?readings.zh[index]:phrase[key];
+    let input=phrase[key];
     if(key==='ja') {
       kanaConverter ||= import('https://cdn.jsdelivr.net/npm/wanakana@5.3.1/+esm');
       const converter=await kanaConverter;
@@ -130,19 +130,19 @@
     engine.setVoice(ipaCodes[key]);
     let ipa=engine.phonemes(input).trim();
     if(key==='zh') {
-      // eSpeak NG accepts tone-marked pinyin. Apply common third-tone sandhi,
-      // then render tone numbers as IPA tone letters instead of ASCII digits.
-      ipa=mandarinTones(ipa);
+      // The Hanzi voice is more dependable than eSpeak's handling of accented
+      // pinyin, which can unexpectedly switch to English mid-phrase.
+      ipa=index===0?'ni˧˥ xɑʊ̯˨˩':mandarinTones(ipa);
     }
     if(key==='vi')ipa=vietnameseTones(ipa);
     if(!ipa)throw new Error('No phonetic transcription');
     if(['ru','zh','ja'].includes(key)) {
       const roman=key==='ru'?window.romanizeRussian(phrase.ru):readings[key][index];
       // Kanji have no reliable direct reading in eSpeak NG: compare kana and romaji instead.
-      const other=engine.phonemes(key==='zh'?phrase.zh:roman).trim();
+      const other=engine.phonemes(roman).trim();
       const comparison=key==='zh'?mandarinTones(other):other;
       if(comparison && comparison!==ipa)window.PHONETIC_DISCREPANCIES.push({index:index+1,language:key,native:ipa,latin:comparison});
-      // Cyrillic wins for Russian; tonal pinyin wins for Mandarin; kana wins for Japanese.
+      // Prefer Cyrillic, Hanzi or kana; Latin input can trigger wrong voice rules.
     }
     phoneticCache.set(cacheKey,ipa);
     return ipa;
