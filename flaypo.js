@@ -5,8 +5,10 @@
 // they were inferred for this site and must be visibly marked as such.
 window.FLAYPO_ASSUMED_TERMS = new Set([
   'BiuInLûmi', // v5 has Biu-in-lumi; the accented spelling is inferred.
-  'BonoInLûmi', 'far', 'ici', 'inLûmi', 'no-ési', 'po-yors'
+  'BiuPrévInNokta', 'BonoInLûmi', 'far', 'inLûmi', 'no-ési', 'po-yors'
 ]);
+// Author-confirmed, 27 November 2026: ici = here, icir = be here;
+// la = there, lar = be there.
 window.FLAYPO_DRAFTS = [
   ["BiuInLûmi !", ""],
   ["BiuPrévInNokta !", ""],
@@ -24,7 +26,7 @@ window.FLAYPO_DRAFTS = [
   ["<???> inZalir <???> ?", "d'où|vous"],
   ["Mui inZalir <???>.", "de France"],
   ["Mui <???> inext ici.", "habite"],
-  ["Mui ési ici <???>.", "pour quelques jours"],
+  ["Mui icir <???>.", "pour quelques jours"],
   ["<???>-sèlf.", "première visite"],
   ["Mui <???>.", "voyage seul"],
   ["<???>.", "ravi de vous revoir"],
@@ -82,7 +84,7 @@ window.FLAYPO_DRAFTS = [
   ["<???> inLûmi <???> ?", "quel jour|sommes-nous"],
   ["<???> waRék <???> ?", "c'est|aujourd'hui"],
   ["<???> timig géfRékir ?", "à quelle heure ça"],
-  ["Mui wil inZalir <???>.", "là dans dix minutes"],
+  ["Mui wil lar <???>.", "dans dix minutes"],
   ["Mui inZalir <???>.", "tout de suite"],
   ["<???> tomoro ?", "pouvons-nous nous retrouver"],
   ["Mui <???> timig.", "ai besoin de plus de"],
@@ -122,3 +124,4 @@ window.PHRASES.forEach((phrase,index) => {
   phrase.flp=text;
   phrase.flpMissing=missing;
 });
+
